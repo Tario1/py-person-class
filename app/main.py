@@ -9,9 +9,9 @@ class Person:
 
 def create_person_list(people: list[dict]) -> list[Person]:
     Person.people = {}
-    persons_list = [Person(person_dict["name"],
-                    person_dict["age"]) for person_dict
-                    in people if person_dict.get("name")
+    persons_list = [Person(person_dict.get("name"),
+                    person_dict.get("age")) for person_dict
+                    in people if person_dict.get("name") is not None
                     and person_dict.get("age") is not None]
 
     for person_dict in people:
