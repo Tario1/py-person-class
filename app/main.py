@@ -18,10 +18,10 @@ def create_person_list(people: list[dict]) -> list[Person]:
         current_person = Person.people.get(person_dict.get("name"))
         if not current_person:
             continue
-        partner_name = person_dict.get("wife")
-        if partner_name and partner_name in Person.people:
-            current_person.wife = Person.people[partner_name]
-        partner_name = person_dict.get("husband")
-        if partner_name and partner_name in Person.people:
-            current_person.husband = Person.people[partner_name]
+        for relation in ("wife", "husband"):
+            partner_name = person_dict.get(relation)
+            partner = Person.people.get(partner_name)
+            if partner:
+                setattr(current_person, relation, partner)
+
     return persons_list
